@@ -1,0 +1,10 @@
+TYPE
+  SensorsData : STRUCT
+    temp1 : INT;         (* keine Initialisierung *)
+    temp2 : INT;
+  END_STRUCT;
+  ActuatorsData : STRUCT
+  	valve1 : INT;
+  	valve2 : INT;
+  END_STRUCT;
+END_TYPE

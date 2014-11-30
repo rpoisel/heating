@@ -1,0 +1,11 @@
+FUNCTION_BLOCK WriteActuators
+	VAR_INPUT
+		p_actuators : REF_TO ActuatorsData;
+	END_VAR
+	
+	VAR
+		output1 : INT;
+	END_VAR
+	
+	output1 := p_actuators^.valve1;
+END_FUNCTION_BLOCK

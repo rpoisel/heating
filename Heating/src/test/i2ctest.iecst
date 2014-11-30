@@ -1,0 +1,49 @@
+
+/*
+ * This is a logi.CAD 3 program template
+ */
+PROGRAM I2CExample
+
+/*
+	 * Detect devices:
+	 * watch -n .5 'i2cdetect -y 1; i2cdetect -y 0'
+	 * 
+	 * Write outputs:
+	 * i2cset -y 1 0x38 0x00
+	 * 
+	 * Read inputs:
+	 * i2cget -y 1 0x38
+	 */
+
+	VAR
+		outputs : ARRAY [0..7] OF BOOL;
+		digital_inputs : ARRAY [0..7] OF BOOL;
+		analog_inputs : ARRAY[0..4] OF UINT;
+		fd : DINT := -1;
+		count : SINT := 0;
+
+		num_digital_ios : SINT := 8;
+		num_analog_channels : SINT := 4;
+	END_VAR
+
+	IF fd < 0 THEN
+		fd := I2C_open(bus_id := 1);
+	ELSE
+		/* example for digital IOs */
+		digital_inputs := I2C_PCF8574_read(fd := fd, address := 56 /* 0x38 */);
+
+		FOR count := 0 TO num_digital_ios - 1 BY 1 DO
+			outputs[count] := digital_inputs[count];
+		END_FOR;
+
+		I2C_PCF8574_write(fd := fd, address := 32 /* 0x20 */, pin_values := outputs);
+
+		/* example for analog IOs */
+		analog_inputs := I2HAE(fd := fd, address := 16#0b);
+
+		FOR count := 0 TO num_analog_channels BY 1 DO
+			I2HAA(fd := fd, address := 16#0b, channel := count, value := analog_inputs[count]);
+		END_FOR;
+	END_IF;
+
+END_PROGRAM

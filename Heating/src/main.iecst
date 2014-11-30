@@ -1,0 +1,18 @@
+PROGRAM Heating
+	VAR
+		/* I/O image */
+		sensors : SensorsData;
+		actuators : ActuatorsData;
+		
+		/* I/O access functions */
+		read : ReadSensorData;
+		write : WriteActuators;
+	END_VAR
+	
+	read(p_sensors := REF(sensors));
+	
+	actuators.valve1 := sensors.temp1 * 2; /* example of controller logic */
+	
+	write(p_actuators := REF(actuators));
+	
+END_PROGRAM

@@ -1,0 +1,33 @@
+FUNCTION I2HAA
+
+	VAR_INPUT
+		fd : DINT := -1;
+		address : INT := 16#0b;
+		channel : SINT := 0;
+		value : UINT;
+	END_VAR
+
+	VAR
+		num_bytes : LINT := -1;
+		data : ARRAY[0 .. 63] OF BYTE;
+		data_len : INT := 3;
+
+		I2C_SLAVE : DINT := 1795; /* a constant from the Linux kernel */
+	END_VAR;
+
+	IF fd >= 0 AND value >= 0 AND value < 1024 THEN
+		System_ioctl(fd := fd, request := I2C_SLAVE, data := address, ENO => ENO);
+		IF ENO THEN
+			data[0] := TO_BYTE(channel);
+			data[2] := TO_BYTE(value / 256); /* high byte */
+			data[1] := TO_BYTE(value - TO_UINT(data[2]) * 256);  /* low byte */
+			num_bytes := System_write(fd := fd, count := data_len, data := data, ENO => ENO);
+			IF num_bytes <> data_len THEN
+				ENO := FALSE;
+			END_IF;
+		END_IF;
+	ELSE
+		ENO := FALSE;
+	END_IF;
+
+END_FUNCTION

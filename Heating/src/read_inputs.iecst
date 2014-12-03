@@ -1,0 +1,32 @@
+FUNCTION_BLOCK ReadSensorData
+	VAR_INPUT
+		p_sensors : REF_TO SensorsData;
+	END_VAR
+	
+	VAR
+		data : REF_TO SensorsData; /* workaround */
+		fd : DINT := -1;
+		analog_in_1 : ARRAY[0..4] OF UINT;
+	END_VAR
+	
+	data := p_sensors; /* workaround */
+	
+	/* read data from I/O sub-systems */
+	IF fd < 0 THEN
+		fd := I2C_Open(bus_id := 1); /* /dev/i2c-1 */
+	END_IF;
+	
+	IF fd >= 0 THEN
+		analog_in_1 := I2HAE(fd := fd, address := 16#0b);
+		data^.ai1 := analog_in_1[0];
+		data^.ai2 := analog_in_1[1];
+		data^.ai3 := analog_in_1[2];
+		data^.ai4 := analog_in_1[3];
+		data^.ai5 := analog_in_1[4];
+		
+		ENO := TRUE;
+	ELSE
+		ENO := FALSE; /* fd < 0 */
+	END_IF;
+	
+END_FUNCTION_BLOCK

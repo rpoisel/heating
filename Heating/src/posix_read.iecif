@@ -1,0 +1,13 @@
+{extern_c}
+{Supported_Platforms := Raspbian}
+
+FUNCTION Posix_read : LINT /* number of bytes actually read */
+	VAR_INPUT
+		fd : DINT;
+		count : DINT;
+	END_VAR
+	VAR_OUTPUT
+		data : ARRAY[0..63] OF BYTE;
+		errno : DINT;
+	END_VAR
+END_FUNCTION

@@ -22,7 +22,7 @@ FUNCTION I2HAE : ARRAY[0..4] OF UINT /* 5 channels with 10 bits each */
 			num_bytes := System_read(fd := fd, count := data_len /* 11 bytes at once(!) */, data => data, ENO => ENO);
 
 			IF ENO AND num_bytes = data_len THEN
-				FOR cnt := 1 TO num_channels BY 1 DO
+				FOR cnt := 0 TO num_channels - 1 BY 1 DO
 					I2HAE[cnt] := TO_UINT(data[1 + cnt * 2]) + TO_UINT(data[2 + cnt * 2]) * 256;
 				END_FOR;
 			END_IF;

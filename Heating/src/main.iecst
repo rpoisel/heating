@@ -5,14 +5,17 @@ PROGRAM Heating
 		actuators : ActuatorsData;
 		
 		/* I/O access functions */
-		read : ReadSensorData;
-		write : WriteActuators;
+		read_inputs : ReadSensorData;
+		write_outputs : WriteActuators;
 	END_VAR
 	
-	read(p_sensors := REF(sensors));
+	read_inputs(p_sensors := REF(sensors));
 	
-	actuators.valve1 := sensors.temp1 * 2; /* example of controller logic */
+	actuators.ao1 := sensors.ai1;
+	actuators.ao2 := 0;
+	actuators.ao3 := 0;
+	actuators.ao4 := 0;
 	
-	write(p_actuators := REF(actuators));
+	write_outputs(p_actuators := REF(actuators));
 	
 END_PROGRAM

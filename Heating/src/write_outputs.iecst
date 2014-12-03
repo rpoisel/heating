@@ -1,0 +1,26 @@
+FUNCTION_BLOCK WriteActuators
+	VAR_INPUT
+		p_actuators : REF_TO ActuatorsData;
+	END_VAR
+	
+	VAR
+		fd : DINT := -1;
+	END_VAR
+	
+	ENO := FALSE;
+
+	IF fd < 0 THEN
+		fd := I2C_open(bus_id := 1);
+	END_IF;
+	
+	IF fd >= 0 THEN
+		I2HAA(fd := fd, address := 16#68, channel := 0, value := p_actuators^.ao1);
+		I2HAA(fd := fd, address := 16#68, channel := 1, value := p_actuators^.ao2);
+		I2HAA(fd := fd, address := 16#68, channel := 2, value := p_actuators^.ao3);
+		I2HAA(fd := fd, address := 16#68, channel := 3, value := p_actuators^.ao4);
+		ENO := TRUE;
+	ELSE
+		ENO := FALSE;
+	END_IF;
+
+END_FUNCTION_BLOCK

@@ -1,10 +1,15 @@
 TYPE
   SensorsData : STRUCT
-    temp1 : INT;         (* keine Initialisierung *)
-    temp2 : INT;
+    ai1 : UINT;
+    ai2 : UINT;
+    ai3 : UINT;
+    ai4 : UINT;
+    ai5 : UINT;
   END_STRUCT;
   ActuatorsData : STRUCT
-  	valve1 : INT;
-  	valve2 : INT;
+  	ao1 : UINT;
+  	ao2 : UINT;
+  	ao3 : UINT;
+  	ao4 : UINT;
   END_STRUCT;
 END_TYPE

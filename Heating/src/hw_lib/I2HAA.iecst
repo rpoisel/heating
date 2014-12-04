@@ -27,9 +27,9 @@ FUNCTION I2HAA
 		System_ioctl(fd := fd, request := I2C_SLAVE, data := address, ENO => ENO);
 		IF ENO THEN
 			data[0] := TO_BYTE(channel);
-			data[1] := TO_BYTE(checked_value / 256); /* high byte */
-			data[2] := TO_BYTE(checked_value - TO_UINT(data[1]) * 256);  /* low byte */
-			num_bytes := System_write(fd := fd, count := data_len, data := data, ENO => ENO);
+			data[2] := TO_BYTE(checked_value / 256); /* high byte */
+			data[1] := TO_BYTE(checked_value - TO_UINT(data[2]) * 256);  /* low byte */
+			num_bytes := Posix_write(fd := fd, count := data_len, data := data, ENO => ENO);
 			IF num_bytes <> data_len THEN
 				ENO := FALSE;
 			END_IF;

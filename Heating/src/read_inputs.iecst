@@ -17,7 +17,7 @@ FUNCTION_BLOCK ReadSensorData
 	END_IF;
 	
 	IF fd >= 0 THEN
-		analog_in_1 := I2HAE(fd := fd, address := 16#0b);
+		analog_in_1 := I2HAE(fd := fd, address := 16#08);
 		data^.ai1 := analog_in_1[0];
 		data^.ai2 := analog_in_1[1];
 		data^.ai3 := analog_in_1[2];

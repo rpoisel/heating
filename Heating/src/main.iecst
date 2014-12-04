@@ -12,9 +12,9 @@ PROGRAM Heating
 	read_inputs(p_sensors := REF(sensors));
 	
 	actuators.ao1 := sensors.ai1;
-	actuators.ao2 := 0;
-	actuators.ao3 := 0;
-	actuators.ao4 := 0;
+	actuators.ao2 := sensors.ai2;
+	actuators.ao3 := 16#2ff;
+	actuators.ao4 := 16#3ff;
 	
 	write_outputs(p_actuators := REF(actuators));
 	

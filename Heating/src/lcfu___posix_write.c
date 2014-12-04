@@ -13,6 +13,7 @@ void  lcfu___POSIX_WRITE(LC_TD_Function_POSIX_WRITE* LC_this, LC_TD_DINT LC_VD_F
    */
 	int cnt = 0;
 
+	printf("Posix write: ");
 	for (cnt = 0; cnt < LC_VD_COUNT; cnt++)
 	{
 		printf("0x%02x ", LC_VD_DATA[cnt]);

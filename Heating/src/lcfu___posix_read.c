@@ -18,6 +18,7 @@ void  lcfu___POSIX_READ(LC_TD_Function_POSIX_READ* LC_this, LC_TD_DINT LC_VD_FD,
   LC_this->LC_VD_POSIX_READ = read(LC_VD_FD, LC_this->LC_VD_DATA, LC_VD_COUNT);
   if (LC_this->LC_VD_POSIX_READ == LC_VD_COUNT)
   {
+	printf("Posix read: ");
 	for (cnt = 0; cnt < LC_VD_COUNT; cnt++)
 	{
 		printf("0x%02x ", LC_this->LC_VD_DATA[cnt]);

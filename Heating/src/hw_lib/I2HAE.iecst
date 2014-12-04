@@ -19,7 +19,7 @@ FUNCTION I2HAE : ARRAY[0..4] OF UINT /* 5 channels with 10 bits each */
 	IF fd >= 0 THEN
 		System_ioctl(fd := fd, request := I2C_SLAVE, data := address, ENO => ENO);
 		IF ENO THEN
-			num_bytes := System_read(fd := fd, count := data_len /* 11 bytes at once(!) */, data => data, ENO => ENO);
+			num_bytes := Posix_read(fd := fd, count := data_len /* 11 bytes at once(!) */, data => data, ENO => ENO);
 
 			IF ENO AND num_bytes = data_len THEN
 				FOR cnt := 0 TO num_channels - 1 BY 1 DO

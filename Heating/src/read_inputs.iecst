@@ -7,6 +7,7 @@ FUNCTION_BLOCK ReadSensorData
 		data : REF_TO SensorsData; /* workaround */
 		fd : DINT := -1;
 		analog_in_1 : ARRAY[0..4] OF UINT;
+		digital_in_1 : ARRAY[0..7] OF BOOL;
 	END_VAR
 	
 	data := p_sensors; /* workaround */
@@ -23,6 +24,16 @@ FUNCTION_BLOCK ReadSensorData
 		data^.ai3 := analog_in_1[2];
 		data^.ai4 := analog_in_1[3];
 		data^.ai5 := analog_in_1[4];
+		
+		digital_in_1 := I2C_PCF8574_read(fd := fd, address := 16#20);
+		data^.di1 := digital_in_1[0];
+		data^.di2 := digital_in_1[1];
+		data^.di3 := digital_in_1[2];
+		data^.di4 := digital_in_1[3];
+		data^.di5 := digital_in_1[4];
+		data^.di6 := digital_in_1[5];
+		data^.di7 := digital_in_1[6];
+		data^.di8 := digital_in_1[7];
 		
 		ENO := TRUE;
 	ELSE

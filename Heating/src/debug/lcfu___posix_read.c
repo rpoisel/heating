@@ -2,6 +2,7 @@
 #define LC_PROT_LCFU___POSIX_READ__C
 
 #include <lcfu___posix_read.h>
+#include <stdio.h>
 #include <unistd.h>
 
 /*                            Functions                        */

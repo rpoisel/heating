@@ -5,11 +5,29 @@ TYPE
     ai3 : UINT;
     ai4 : UINT;
     ai5 : UINT;
+
+    di1 : BOOL;
+    di2 : BOOL;
+    di3 : BOOL;
+    di4 : BOOL;
+    di5 : BOOL;
+    di6 : BOOL;
+    di7 : BOOL;
+    di8 : BOOL;
   END_STRUCT;
   ActuatorsData : STRUCT
   	ao1 : UINT;
   	ao2 : UINT;
   	ao3 : UINT;
   	ao4 : UINT;
+
+  	do1 : BOOL;
+  	do2 : BOOL;
+  	do3 : BOOL;
+  	do4 : BOOL;
+  	do5 : BOOL;
+  	do6 : BOOL;
+  	do7 : BOOL;
+  	do8 : BOOL;
   END_STRUCT;
 END_TYPE

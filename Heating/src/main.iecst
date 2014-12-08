@@ -16,6 +16,15 @@ PROGRAM Heating
 	actuators.ao3 := 16#2ff;
 	actuators.ao4 := 16#3ff;
 	
+	actuators.do1 := sensors.di1;
+	actuators.do2 := sensors.di2;
+	actuators.do3 := sensors.di3;
+	actuators.do4 := sensors.di4;
+	actuators.do5 := sensors.di5;
+	actuators.do6 := sensors.di6;
+	actuators.do7 := sensors.di7;
+	actuators.do8 := sensors.di8;
+	
 	write_outputs(p_actuators := REF(actuators));
 	
 END_PROGRAM

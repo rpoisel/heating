@@ -5,6 +5,7 @@ FUNCTION_BLOCK WriteActuators
 	
 	VAR
 		fd : DINT := -1;
+		cumm_do_1 : ARRAY[0..7] OF BOOL; /* cummulated digital outputs */
 	END_VAR
 	
 	ENO := FALSE;
@@ -18,6 +19,16 @@ FUNCTION_BLOCK WriteActuators
 		I2HAA(fd := fd, address := 16#58, channel := 1, value := p_actuators^.ao2);
 		I2HAA(fd := fd, address := 16#58, channel := 2, value := p_actuators^.ao3);
 		I2HAA(fd := fd, address := 16#58, channel := 3, value := p_actuators^.ao4);
+		
+		cumm_do_1[0] := p_actuators^.do1;
+		cumm_do_1[1] := p_actuators^.do2;
+		cumm_do_1[2] := p_actuators^.do3;
+		cumm_do_1[3] := p_actuators^.do4;
+		cumm_do_1[4] := p_actuators^.do5;
+		cumm_do_1[5] := p_actuators^.do6;
+		cumm_do_1[6] := p_actuators^.do7;
+		cumm_do_1[7] := p_actuators^.do8;
+		I2C_PCF8574_write(fd := fd, address := 16#38, pin_values := cumm_do_1);
 		ENO := TRUE;
 	ELSE
 		ENO := FALSE;

@@ -2,6 +2,7 @@
 #define LC_PROT_LCFU___POSIX_WRITE__C
 
 #include <lcfu___posix_write.h>
+#include <stdio.h>
 #include <unistd.h>
 
 /*                            Functions                        */

@@ -1,3 +1,4 @@
 src-gen/
 target/
+.settings/variableView/
 .fingerprint

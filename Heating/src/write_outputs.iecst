@@ -5,7 +5,7 @@ FUNCTION_BLOCK WriteActuators
 	
 	VAR
 		fd : DINT := -1;
-		cumm_do_1 : ARRAY[0..7] OF BOOL; /* cummulated digital outputs */
+		cumm_do_1 : ARRAY[0..7] OF BOOL; /* cumulated digital outputs */
 	END_VAR
 	
 	ENO := FALSE;

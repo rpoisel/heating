@@ -1,0 +1,19 @@
+FUNCTION MAX7311_REGISTER
+	VAR_INPUT
+		fd : DINT := -1;
+		register : BYTE := 16#06;
+		value : BYTE := 16#00;
+	END_VAR
+	VAR
+		num_bytes : LINT := -1;
+		data : ARRAY [0..63] OF BYTE;
+		data_len : INT := 2;
+	END_VAR
+
+	data[0] := TO_BYTE(register);
+	data[1] := TO_BYTE(value);
+	num_bytes := System_write(fd := fd, count := data_len, data := data, ENO => ENO);
+	IF num_bytes <> data_len THEN
+		ENO := FALSE;
+	END_IF;
+END_FUNCTION

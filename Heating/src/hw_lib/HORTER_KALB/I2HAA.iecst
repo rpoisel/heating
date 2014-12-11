@@ -23,7 +23,7 @@ FUNCTION I2HAA
 		checked_value := value;
 	END_IF;
 
-	IF fd >= 0 AND value >= 0 AND value < 1024 THEN
+	IF fd >= 0 THEN
 		System_ioctl(fd := fd, request := I2C_SLAVE, data := address, ENO => ENO);
 		IF ENO THEN
 			data[0] := TO_BYTE(channel);

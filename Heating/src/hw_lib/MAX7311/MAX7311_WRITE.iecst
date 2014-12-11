@@ -1,0 +1,55 @@
+/* Sample C-Code:
+ * http://www.raspberrypi.org/forums/viewtopic.php?t=26884&p=253297
+ */
+ 
+ /*
+  * Datasheet:
+  * http://ee-classes.usc.edu/ee459/library/datasheets/MAX7311.pdf
+  */
+FUNCTION MAX7311_WRITE
+
+	VAR_INPUT
+		fd : DINT := -1;
+		address : INT := 16#0b;
+		values : ARRAY[0..15] OF BOOL;
+	END_VAR
+
+	VAR
+		count : INT := 0;
+		output_states : BYTE := 16#00;
+
+		I2C_SLAVE : DINT := 1795; /* a constant from the Linux kernel */
+	END_VAR;
+
+	IF fd >= 0 THEN
+		System_ioctl(fd := fd, request := I2C_SLAVE, data := address, ENO => ENO);
+		/* port 1 configuration */
+		IF ENO THEN
+			MAX7311_REGISTER(fd := fd, register := 16#06, value := 16#00, ENO => ENO);
+		END_IF;
+		/* port 2 configuration */
+		IF ENO THEN
+			MAX7311_REGISTER(fd := fd, register := 16#07, value := 16#00, ENO => ENO);
+		END_IF;
+		/* output port 1 */
+		IF ENO THEN
+			output_states := 16#00;
+			FOR count := 0 TO 7 BY 1 DO
+				output_states := output_states OR SHL(values[count], count);
+			END_FOR;		
+			MAX7311_REGISTER(fd := fd, register := 16#02, value := output_states);
+		END_IF;
+		/* output port 2 */
+		IF ENO THEN
+			output_states := 16#00;
+			FOR count := 0 TO 7 BY 1 DO
+				output_states := output_states OR SHL(values[count + 8], count);
+			END_FOR;
+			MAX7311_REGISTER(fd := fd, register := 16#03, value := output_states);
+		END_IF;
+	ELSE
+		ENO := FALSE;
+	END_IF;
+
+END_FUNCTION
+
